@@ -41,10 +41,10 @@ public class Main {
 
     @OnCombatLogEntry
     public void onCombatLogEntry(CombatLogEntry cle) {
-        String time = "[" + GAMETIME_FORMATTER.print(Duration.millis((int) (1000.0f * cle.getTimestamp())).toPeriod()) + "]";
+        String time =GAMETIME_FORMATTER.print(Duration.millis((int) (1000.0f * cle.getTimestamp())).toPeriod())+"--";
         switch (cle.getType()) {
             case DOTA_COMBATLOG_DAMAGE:
-                log.info("{} {} hits {}{} for {} damage{}",
+                log.info("{} {} hits {}{} for {} damage{} )",
                     time,
                     getAttackerNameCompiled(cle),
                     getTargetNameCompiled(cle),

@@ -15,17 +15,28 @@ public class Main {
 
     private final Logger log = LoggerFactory.getLogger(Main.class.getPackage().getClass());
 
-    @OnEntityPropertyChanged(classPattern = "CDOTA_Unit_Hero_.*", propertyPattern = "m_lifeState")
+    @OnEntityPropertyChanged(classPattern = "CDOTA_Unit_Hero_.*", propertyPattern = "CBodyComponent.m_cellX")
     public void onEntityPropertyChanged(Context ctx, Entity e, FieldPath fp) {
         System.out.format(
-                "%6d %s: %s = %s\n",
-                ctx.getTick(),
+                "%6d\t%s\t%s\t%s\n",
+                ctx.getTick()/30,
                 e.getDtClass().getDtName(),
-                e.getDtClass().getNameForFieldPath(fp),
-                e.getPropertyForFieldPath(fp)
-        );
+                //e.getDtClass().getNameForFieldPath(fp),
+                //e.getPropertyForFieldPath(fp),
+                e.getProperty("CBodyComponent.m_vecX"),
+                e.getProperty("CBodyComponent.m_vecY")
+        );  
     }
-
+   /* @OnEntityPropertyChanged(classPattern = "CDOTA_Unit_Hero_.*", propertyPattern = "CBodyComponent.m_cellY")
+    public void onEntityPropertyChangedY(Context ctx, Entity e, FieldPath fp) {
+        System.out.format(
+                " %s\n",
+                //ctx.getTick(),
+                //e.getDtClass().getDtName(),
+                //e.getDtClass().getNameForFieldPath(fp),
+                e.getPropertyForFieldPath(fp)
+        );  
+    } */
     public void run(String[] args) throws Exception {
         long tStart = System.currentTimeMillis();
         new SimpleRunner(new MappedFileSource(args[0])).runWith(this);
