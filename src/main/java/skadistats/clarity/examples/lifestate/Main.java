@@ -17,13 +17,18 @@ public class Main {
 
     @OnEntitySpawned
     public void onSpawned(Entity e) {
-        System.out.printf("%06d: %s at index %d has spawned\n", ctx.getTick(), e.getDtClass().getDtName(), e.getIndex());
+        // System.out.printf("%06d: %s at index %d has spawned\n", ctx.getTick(), e.getDtClass().getDtName(), e.getIndex());
     }
 
     @OnEntityDied
     public void onDied(Entity e) {
-        System.out.printf("%06d: %s at index %d has died\n", ctx.getTick(), e.getDtClass().getDtName(), e.getIndex());
-    }
+        if (e.getDtClass().getDtName().contains("Hero")){
+            int out=e.getProperty("m_iCurrentXP");
+            int xp = Integer.valueOf(out);
+            if (xp>0){
+            
+        System.out.printf("%06d\t%s\t%s\n", ctx.getTick()/30, e.getDtClass().getDtName(), e.getProperty("m_iTeamNum"));
+    }}}
 
     public void run(String[] args) throws Exception {
         long tStart = System.currentTimeMillis();
